@@ -1,34 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%-- 学生情報変更完了 --%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
+
 
 <c:import url="/common/base.jsp">
-
-	<%-- タイトル --%>
 	<c:param name="title">
 		得点管理システム
 	</c:param>
-
-	<%-- 追加スクリプトなし --%>
+	
 	<c:param name="scripts"></c:param>
-
-	<%-- 画面本体 --%>
+	
 	<c:param name="content">
 		<section class="me-4">
-
-			<%-- 見出し --%>
-			<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報変更</h2>
-
-			<%-- 完了メッセージ --%>
-			<div class="alert alert-success mx-3" role="alert">
+		
+			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
+				学生情報変更
+			</h2>
+			
+			<p class="text-center py-1"
+			   style="background-color:#66CC99; margin-bottom:130px">
 				変更が完了しました
-			</div>
-
-			<%-- 学生一覧リンク --%>
+			</p>
+			
 			<div class="mx-3">
-				<a href="StudentList.action">学生一覧</a>
+				
+				<%-- 学生一覧画面に遷移する --%>
+				<a href="StudentList.action">
+					学生一覧
+				</a>
 			</div>
-
+			
 		</section>
 	</c:param>
 </c:import>

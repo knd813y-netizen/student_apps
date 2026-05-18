@@ -125,14 +125,11 @@
 									<c:forEach var="num" items="${num_set}">
 										<td class="text-center">
 											<c:choose>
-											    <c:when test="${empty student.points[num]}">
-											        -
-											    </c:when>
-											    <c:otherwise>
-											        ${student.points[num]}
-											    </c:otherwise>
+												<c:when test="${not empty student.points[num]}">
+													${student.points[num]}
+												</c:when>
+												<c:otherwise>-</c:otherwise>
 											</c:choose>
-
 										</td>
 									</c:forEach>
 								</tr>

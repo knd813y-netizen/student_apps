@@ -6,9 +6,7 @@ import java.util.Map;
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDao;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import tool.Action;
 
 public class SubjectCreateExecuteAction extends Action {

@@ -115,30 +115,6 @@ public class ClassNumDao extends Dao {
 		
 		return list;
 	}
-    // ClassNumオブジェクト一覧（必要なら）
-    public List<ClassNum> findBySchool(String schoolCd) throws Exception {
-
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement(
-            "SELECT class_num FROM class_num WHERE school_cd=? ORDER BY class_num"
-        );
-        ps.setString(1, schoolCd);
-
-        ResultSet rs = ps.executeQuery();
-
-        List<ClassNum> list = new ArrayList<>();
-        while (rs.next()) {
-            ClassNum cn = new ClassNum();
-            cn.setClass_num(rs.getString("class_num"));
-            list.add(cn);
-        }
-
-        rs.close();
-        ps.close();
-        con.close();
-
-        return list;
-    }
 	
 	public boolean save(ClassNum classNum) throws Exception {
 		// Connection確立

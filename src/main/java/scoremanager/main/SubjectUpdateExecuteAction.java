@@ -60,7 +60,7 @@ public class SubjectUpdateExecuteAction extends Action {
 			
 		// 科目情報変更完了画面へ
 		url = "subject_update_done.jsp";
-		req.getRequestDispatcher("subject_update_done.jsp")
+		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}
 }
