@@ -1,4 +1,4 @@
-<%-- クラス情報登録 --%>
+<%-- クラス情報変更 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -14,36 +14,53 @@
 		<section class="me-4">
 		
 			<h2 class="h3 mb-4 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
-				クラス情報登録
+				進級変更
 			</h2>
 			
 			<%-- フォーム --%>
-			<form action="ClassCreateExecute.action" method="post">
+			<form action="ClassPromoteExecute.action" method="post">
 				<div class="mx-3">
 				
-					<%-- クラス番号 --%>
+					<%-- 現在のクラス番号 --%>
 					<div class="mb-3">
 						<label class="form-label">
-							クラス番号
+							現在のクラス番号
 						</label>
 						<input type="text"
-							   name="class_num"
-							   class="form-control"
-							   placeholder="クラス番号を入力してください"
-							   value="${class_num}"
-							   required>
-							   
-						<%--　クラス番号のエラーメッセージ --%>
+							   class="form-control-plaintext ps-3"
+							   value="${oldClassNum}"
+							   readonly>
+						
+						<input type="hidden"
+							   name="oldClassNum"
+							   value="${oldClassNum}">
+					</div>
+					
+					<%-- 新しいクラス番号 --%>
+					<div class="mb-3">
+						<label class="form-label">
+							新しいクラス番号
+						</label>
+						<select name="newClassNum"
+								class="form-select">
+							<c:forEach var="cn" items="${classNums}">
+								<option value="${cn}">
+									${cn}
+								</option>
+							</c:forEach>
+						</select>
+					
+						<%-- クラス番号のエラーメッセージ --%>
 						<div class="text-warning mt-2">
 							${errors.get("class_num")}
 						</div>
 					</div>
-					
+						
 					<div class="text-start">
 					
-						<%-- 登録ボタン --%>
+						<%-- 変更ボタン --%>
 						<button type="submit" class="btn btn-primary">
-							登録
+							変更
 						</button>
 						
 						<%-- クラス管理画面に遷移する --%>

@@ -2,8 +2,10 @@ package scoremanager.main;
 
 import java.util.List;
 
+import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import jakarta.servlet.http.*;
 import tool.Action;
 
@@ -14,25 +16,28 @@ public class ClassUpdateAction extends Action {
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
-		// ローカル変数
+		// ロカール変数
 		String url = "";
-		// セッション取得
+		//　セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
 		Teacher teacher = (Teacher) session.getAttribute("user");
 		
-		// パラメータ取得
-		String classNum = req.getParameter("class_num");
+		// パラメーター取得(学生番号取得)
+		String no = req.getParameter("no");
 		// Dao
-		ClassNumDao cDao = new ClassNumDao();
+		StudentDao sDao = new StudentDao();
+		// 学生取得
+		Student student = sDao.get(no);
 		// クラス一覧取得
+		ClassNumDao cDao = new ClassNumDao();
 		List<String> classNums = cDao.filter(teacher.getSchool());
 		
 		// リクエストへセット
-		req.setAttribute("oldClassNum", classNum);
+		req.setAttribute("student", student);
 		req.setAttribute("classNums", classNums);
 		
-		// クラス番号変更画面へ
+		// 学生クラス番号変更画面へ
 		url = "class_update.jsp";
 		req.getRequestDispatcher(url)
 			.forward(req, res);

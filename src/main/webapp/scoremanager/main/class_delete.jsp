@@ -19,7 +19,7 @@
 			
 			<div class="mx-3">
 				<p style="margin-top:35px">
-					「${classNum.class_num}」を削除してよろしいですか？
+					クラス「${classNum.class_num}」を削除してよろしいですか？
 				</p>
 				
 				<c:if test="${not empty error}">

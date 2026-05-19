@@ -21,7 +21,6 @@ public class ClassCreateAction extends Action {
 			"errors",
 			new HashMap<String, String>()
 		);
-		
 		// 初期値
 		req.setAttribute("class_num", "");
 		

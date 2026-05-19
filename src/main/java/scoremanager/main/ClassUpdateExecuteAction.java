@@ -1,37 +1,40 @@
 package scoremanager.main;
 
-import bean.Teacher;
+import bean.Student;
 import dao.StudentDao;
 import jakarta.servlet.http.*;
 import tool.Action;
 
-public class ClassUpdateExecuteAction extends Action {
+public class ClassUpdateExecuteAction
+	extends Action {
 
 	@Override
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
 		
-		// ローカル変数
+		// ロカール変数
 		String url = "";
-		// セッション取得
-		HttpSession session =req.getSession();
-		// ログインユーザー取得
-		Teacher teacher = (Teacher) session.getAttribute("user");
 		
-		// パラメータ取得
-		String oldClassNum = req.getParameter("oldClassNum");
+		// パラメーター取得
+		String no = req.getParameter("no");
 		String newClassNum = req.getParameter("newClassNum");
+		
 		// Dao
 		StudentDao sDao = new StudentDao();
-		sDao.updateClass(oldClassNum, newClassNum, teacher.getSchool());
+		// 学生取得
+		Student student = sDao.get(no);
+		student.setClassNum(newClassNum);
+		
+		// DBに保存
+		sDao.save(student);
 		
 		// リクエストへセット
-		req.setAttribute("oldClassNum", oldClassNum);
+		req.setAttribute("student", student);
 		req.setAttribute("newClassNum", newClassNum);
 		
-		// クラス番号変更完了画面へ
-		url = "class_update_done.jsp";
+		// 学生クラス番号変更完了画面へ
+		url ="class_update_done.jsp";
 		req.getRequestDispatcher(url)
 			.forward(req, res);
 	}

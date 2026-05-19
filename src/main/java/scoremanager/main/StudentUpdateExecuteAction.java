@@ -33,7 +33,7 @@ public class StudentUpdateExecuteAction extends Action {
 		int entYear = Integer.parseInt(entYearStr);
 		boolean isAttend = isAttendStr != null;
 		
-		// 学生生成
+		// 学生インスタンス生成
 		Student student = new Student();
 		student.setNo(no);
 		student.setName(name);
@@ -44,7 +44,7 @@ public class StudentUpdateExecuteAction extends Action {
 		
 		// 学生取得
 		StudentDao sdao = new StudentDao();
-		// DBに更新
+		// DBに保存
 		sdao.save(student);
 		
 		// 学生情報変更完了画面へ

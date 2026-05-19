@@ -173,14 +173,14 @@ public class StudentDao extends Dao {
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文の条件
-		String condition = "and ent_year = ?";
+		String condition = " and ent_year = ?";
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend = true";
+			conditionIsAttend = " and is_attend = true";
 		}
 		
 		try {
@@ -232,12 +232,12 @@ public class StudentDao extends Dao {
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend = true";
+			conditionIsAttend = " and is_attend = true";
 		}
 		
 		try {
@@ -345,221 +345,5 @@ public class StudentDao extends Dao {
 		}
 		
 		return count > 0;
-	}
-	
-	public boolean existsByClassNum(String class_num, School school) throws Exception {
-
-		boolean result = false;
-		// Connection確立
-		Connection connection = getConnection();
-		// PreparedStatement
-		PreparedStatement statement = null;
-		
-		try {
-			// SQL文をセット
-			statement = connection.prepareStatement(
-				"select count(*) from student "
-				+ "where class_num = ? and school_cd = ?"
-			);
-			// 値をバインド(bind)
-			statement.setString(1, class_num);
-			statement.setString(2, school.getCd());
-			// 実行
-			ResultSet rSet = statement.executeQuery();
-			
-			if (rSet.next()) {
-				result = rSet.getInt(1) > 0;
-			}
-		} finally {
-			// PreparedStatementを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			
-			// Connectionを閉じる
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		
-		return result;
-	}
-	
-	// クラス丸変更機能(update)
-	public boolean updateClass(String oldClassNum, String newClassNum, School school) throws Exception {
-		// Connection確立
-		Connection connection = getConnection();
-		// PreparedStatement
-		PreparedStatement statement = null;
-		// 実行件数
-		int count = 0;
-		
-		try {
-			// SQL文をセット
-			statement = connection.prepareStatement(
-				"update student " +
-				"set class_num = ? " +
-				"where class_num = ? " +
-				"and school_cd = ?"
-			);
-			// 新しいクラス番号と現在のクラス番号と学校コードをバインド(bind)
-			statement.setString(1,newClassNum);
-			statement.setString(2,oldClassNum);
-			statement.setString(3,school.getCd());
-			// 実行
-			count = statement.executeUpdate();
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			// PreparedStatementを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			
-			// Connectionを閉じる
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		return count > 0;
-	}
-	
-	// 学生のクラス変更
-	public boolean updateStudentClass(String no, String classNum, School school) throws Exception {
-		// Connection確立
-		Connection connection = getConnection();
-		// PreparedStatement
-		PreparedStatement statement = null;
-		// 実行件数
-		int count = 0;
-
-		try {
-			// SQL文をセット
-			statement = connection.prepareStatement(
-				"update student " +
-				"set class_num = ? " +
-				"where no = ? " +
-				"and school_cd = ?"
-			);
-			// 値をバインド(bind)
-			statement.setString(1, classNum);
-			statement.setString(2, no);
-			statement.setString(3, school.getCd());
-			// 実行
-			count = statement.executeUpdate();
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			// PreparedStatementを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			
-			// Connectionを閉じる
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		
-		return count > 0;
-	}
-	
-	public List<Student> filterByClassNum(String classNum, School school) throws Exception {
-		// List初期化
-		List<Student> list = new ArrayList<>();
-		// Connection確立
-		Connection connection = getConnection();
-		// PreparedStatement
-		PreparedStatement statement = null;
-		// ResultSet
-		ResultSet rSet = null;
-		
-		try {
-			// SQL文をセット
-			statement = connection.prepareStatement(
-				"select * from student "
-				+ "where class_num = ? "
-				+ "and school_cd = ? "
-				+ "order by no"
-			);
-			// クラス番号と学校コードをバインド(bind)
-			statement.setString(1, classNum);
-			statement.setString(2, school.getCd());
-			// 実行
-			rSet = statement.executeQuery();
-			
-			// ResultSet全件走査
-			while (rSet.next()) {
-				// Studentを初期化
-				Student student = new Student();
-				// 値をセット
-				student.setNo(rSet.getString("no"));
-				student.setName(rSet.getString("name"));
-				student.setEntYear(rSet.getInt("ent_year"));
-				student.setClassNum(rSet.getString("class_num"));
-				student.setAttend(rSet.getBoolean("is_attend"));
-				student.setSchool(school);
-				// Listに追加
-				list.add(student);
-			}
-			
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			// ResultSetを閉じる
-			if (rSet != null) {
-				try {
-					rSet.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			
-			// PreparedStatementを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			
-			// Connectionを閉じる
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		
-		return list;
 	}
 }

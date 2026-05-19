@@ -21,7 +21,7 @@ public class SubjectCreateExecuteAction extends Action {
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
-		Teacher teacher = (Teacher)session.getAttribute("user");
+		Teacher teacher = (Teacher) session.getAttribute("user");
 		
 		// パラメーター取得
 		String cd = req.getParameter("cd");
@@ -58,7 +58,7 @@ public class SubjectCreateExecuteAction extends Action {
 			req.setAttribute("cd", cd);
 			req.setAttribute("name", name);
 			
-			// 登録画面へ
+			// 科目情報登録画面へ
 			url = "subject_create.jsp";
 			req.getRequestDispatcher(url)
 				.forward(req, res);
@@ -75,7 +75,7 @@ public class SubjectCreateExecuteAction extends Action {
 		// DBに保存
 		suDao.save(subject);
 		
-		// 科目登録完了画面へ
+		// 科目情報登録完了画面へ
 		url = "subject_create_done.jsp";
 		req.getRequestDispatcher(url)
 			.forward(req, res);

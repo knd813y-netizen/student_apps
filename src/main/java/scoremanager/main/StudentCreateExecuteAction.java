@@ -1,12 +1,11 @@
 package scoremanager.main;
 
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -33,15 +32,14 @@ public class StudentCreateExecuteAction extends Action {
 		// パラメーター取得
 		String no = req.getParameter("no");
 		String name = req.getParameter("name");
-		String entYearStr = req.getParameter("ent_year");
 		String classNum = req.getParameter("class_num");
+		String entYearStr = req.getParameter("ent_year");
 		// エラーはHashMapに格納
 		Map<String, String> errors = new HashMap<>();
 		
 		// 入学年度チェック
 		int entYear = 0;
-		
-		if (entYearStr == null || entYearStr.equals("0")) {
+		if (entYearStr == null || entYearStr.isEmpty() || entYearStr.equals("0")) {
 			errors.put(
 				"ent_year",
 				"入学年度を選択してください"
@@ -52,9 +50,10 @@ public class StudentCreateExecuteAction extends Action {
 			entYear = Integer.parseInt(entYearStr);
 		}
 		
-		// 学生番号重複チェック
+		// 学生取得
 		StudentDao sDao = new StudentDao();
-		if (no != null &&! no.isEmpty() && sDao.existsByNo(no)) {
+		// 学生番号重複チェック
+		if (sDao.get(no) != null) {
 			errors.put(
 				"no",
 				"学生番号が重複しています"
@@ -62,42 +61,39 @@ public class StudentCreateExecuteAction extends Action {
 		}
 		
 		// エラーがある場合
-		if (errors.size() > 0) {
+		if (!errors.isEmpty()) {
 			
-			// 現在年取得
-			LocalDate today = LocalDate.now();
-			int year = today.getYear();
+			// クラス一覧取得
+			ClassNumDao cDao = new ClassNumDao();
+			List<String> classNumSet = cDao.filter(teacher.getSchool());
 			
 			// 入学年度一覧
+			LocalDate today = LocalDate.now();
+			int year = today.getYear();
 			List<Integer> entYearSet = new ArrayList<>();
 			
 			for (int i = year - 10; i <= year; i++) {
 				entYearSet.add(i);
 			}
 			
-			// クラス一覧
-			ClassNumDao cDao = new ClassNumDao();
-			List<String> classNumSet = cDao.filter(teacher.getSchool());
-			
 			// リクエストへセット
-			req.setAttribute("errors",errors);
-			req.setAttribute("ent_year_set",entYearSet);
 			req.setAttribute("class_num_set",classNumSet);
-			
-			// 入力値保持
+			req.setAttribute("ent_year_set",entYearSet);
 			req.setAttribute("no", no);
 			req.setAttribute("name", name);
-			req.setAttribute("ent_year",entYearStr);
-			req.setAttribute("class_num",classNum);
+			req.setAttribute("class_num", classNum);
+			req.setAttribute("ent_year", entYearStr);
+			req.setAttribute("errors", errors);
 			
 			// 学生情報登録画面へ
 			url = "student_create.jsp";
 			req.getRequestDispatcher(url)
 				.forward(req, res);
+			
 			return;
 		}
 		
-		// 学生生成
+		// 学生インスタンス生成
 		Student student = new Student();
 		student.setNo(no);
 		student.setName(name);

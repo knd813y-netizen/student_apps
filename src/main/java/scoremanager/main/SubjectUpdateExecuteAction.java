@@ -31,7 +31,7 @@ public class SubjectUpdateExecuteAction extends Action {
 		// エラーはHashMapに格納
 		Map<String, String> errors = new HashMap<>();
 		
-		// エラーメッセージ
+		// エラーがある場合
 		if (!errors.isEmpty()) {
 			Subject subject = new Subject();
 			subject.setCd(cd);
@@ -40,6 +40,8 @@ public class SubjectUpdateExecuteAction extends Action {
 			req.setAttribute("subject", subject);
 			req.setAttribute("errors", errors);
 			
+			
+			// 科目情報変更画面へ
 			url = "subject_update.jsp";
 			req.getRequestDispatcher(url)
 				.forward(req, res);
@@ -47,13 +49,13 @@ public class SubjectUpdateExecuteAction extends Action {
 			return;
 		}
 		
-		// Bean
+		// 科目インスタンス生成
 		Subject subject = new Subject();
 		subject.setCd(cd);
 		subject.setName(name);
 		subject.setSchool(teacher.getSchool());
 		
-		// 科目取得
+		// Dao
 		SubjectDao suDao = new SubjectDao();
 		// DBに保存
 		suDao.save(subject);

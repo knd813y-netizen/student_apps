@@ -33,7 +33,7 @@
 					</button>
 					
 					<div style="margin-top:60px">
-						<%-- 科目管理一覧画面に遷移する --%>
+						<%-- 科目管理画面に遷移する --%>
 						<a href="SubjectList.action">
 							戻る
 						</a>

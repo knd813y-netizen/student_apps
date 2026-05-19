@@ -34,7 +34,6 @@
 							   readonly>
 					</div>
 					
-					
 					<%-- 科目名 --%>
 					<div class="mb-3">
 						<label class="form-label">
@@ -47,14 +46,13 @@
 							   value="${subject.name}"
 							   required>
 							   
-						<%--　科目名のエラーメッセージ --%>
+						<%-- 科目名のエラーメッセージ --%>
 						<div class="text-warning mt-2">
 							${errors.get("name")}
 						</div>
 					</div>
 							
 					<div class="text-start">
-					
 						<%-- 変更ボタン --%>
 						<button type="submit" class="btn btn-primary">
 							変更
@@ -66,7 +64,6 @@
 								戻る
 							</a>
 						</div>
-						
 					</div>
 					
 				</div>

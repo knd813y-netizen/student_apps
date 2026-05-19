@@ -25,12 +25,12 @@ public class SubjectDeleteExecuteAction extends Action {
 		// パラメーター取得
 		String cd = req.getParameter("cd");
 		
+		// 科目インスタンス生成
 		Subject subject = new Subject();
 		subject.setCd(cd);
-		// 学校をセット
 		subject.setSchool(teacher.getSchool());
 		
-		// 科目取得
+		// Dao
 		SubjectDao suDao = new SubjectDao();
 		// DBから削除
 		suDao.delete(subject);

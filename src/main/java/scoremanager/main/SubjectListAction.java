@@ -28,9 +28,7 @@ public class SubjectListAction extends Action {
 		SubjectDao suDao = new SubjectDao();
 		
 		// 科目一覧取得
-		List<Subject> subjects = suDao.filter(
-			teacher.getSchool()
-		);
+		List<Subject> subjects = suDao.filter(teacher.getSchool());
 		
 		// リクエストへセット
 		req.setAttribute("subjects", subjects);

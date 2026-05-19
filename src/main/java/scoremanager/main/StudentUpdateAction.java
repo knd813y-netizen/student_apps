@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class StudentUpdateAction extends Action {
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
-		Teacher teacher =(Teacher)session.getAttribute("user");
+		Teacher teacher = (Teacher) session.getAttribute("user");
 		
 		// パラメーター取得(学生番号取得)
 		String no = req.getParameter("no");

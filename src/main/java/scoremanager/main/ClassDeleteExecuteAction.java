@@ -18,7 +18,7 @@ public class ClassDeleteExecuteAction extends Action {
 		// セッション取得
 		HttpSession session = req.getSession();
 		// ログインユーザー取得
-		Teacher teacher = (Teacher)session.getAttribute("user");
+		Teacher teacher = (Teacher) session.getAttribute("user");
 		
 		// パラメータ取得
 		String class_num = req.getParameter("class_num");
@@ -30,15 +30,14 @@ public class ClassDeleteExecuteAction extends Action {
 		ClassNumDao cDao = new ClassNumDao();
 		
 		try {
-
 			// 削除
 			cDao.delete(classNum);
-
+			
 			// クラス番号削除完了画面へ
 			url = "class_delete_done.jsp";
-
+			
 		} catch (Exception e) {
-
+			
 			// エラーメッセージ
 			req.setAttribute(
 				"error",

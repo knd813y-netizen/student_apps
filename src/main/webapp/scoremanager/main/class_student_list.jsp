@@ -11,7 +11,6 @@
 	<c:param name="scripts"></c:param>
 	
 	<c:param name="content">
-	
 		<section class="me-4">
 		
 			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
@@ -25,13 +24,19 @@
 					
 						<tr>
 							<th>学生番号</th>
-							<th class="text-end">氏名</th>
+							<th>氏名</th>
+							<th>クラス変更</th>
 						</tr>
 						
 						<c:forEach var="student" items="${students}">
 							<tr>
 								<td>${student.no}</td>
-								<td class="text-end">${student.name}</td>
+								<td>${student.name}</td>
+								<td>
+									<a href="ClassUpdate.action?no=${student.no}">
+										変更
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
 						

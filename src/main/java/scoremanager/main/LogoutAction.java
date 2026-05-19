@@ -15,14 +15,14 @@ public class LogoutAction extends Action {
 		// ロカール変数の宣言
 		String url = "";
 		HttpSession session = req.getSession();
-
+		
 		// パラメーター取得
 		// DBからデータ取得
 		// ビジネスロジック
 		if (session.getAttribute("user") != null) {
 			session.invalidate();
 		}
-
+		
 		// DBへデータ保存
 		// レスポンス値をセット
 		// ログアウト画面へ

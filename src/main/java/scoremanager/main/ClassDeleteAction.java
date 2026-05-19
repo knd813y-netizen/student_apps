@@ -27,7 +27,7 @@ public class ClassDeleteAction extends Action {
 		// DAO
 		ClassNumDao cDao = new ClassNumDao();
 		// クラス番号取得
-		ClassNum classNum = cDao.get(class_num,teacher.getSchool());
+		ClassNum classNum = cDao.get(class_num, teacher.getSchool());
 		
 		// リクエストへセット
 		req.setAttribute("classNum", classNum);

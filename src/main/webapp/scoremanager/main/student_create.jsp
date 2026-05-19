@@ -37,7 +37,10 @@
 							<c:forEach var="year"
 									   items="${ent_year_set}">
 									   
-								<option value="${year}">
+								<option value="${year}"
+									<c:if test="${year == ent_year}">
+										selected
+									</c:if>>
 									${year}
 								</option>
 								
@@ -45,7 +48,7 @@
 						</select>
 						
 						<%-- 入学年度のエラーメッセージ --%>
-						<div class="text-warning">
+						<div class="text-warning mt-2">
 							${errors.get("ent_year")}
 						</div>
 					</div>
@@ -60,6 +63,11 @@
 							   name="no"
 							   placeholder="学生番号を入力してください"
 							   required>
+							   
+						<%-- 学生番号のエラーメッセージ --%>
+						<div class="text-warning mt-2">
+							${errors.get("no")}
+						</div>
 					</div>
 					
 					<%-- 氏名 --%>

@@ -15,12 +15,13 @@ import tool.Action;
 public class TestListAction extends Action {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		// ----------------------------
-		// 1. ローカル変数の宣言
-		// ----------------------------
+	public void execute(
+		HttpServletRequest request, HttpServletResponse response
+	) throws Exception {
+		
+		// セッション取得
 		HttpSession session = request.getSession();
+		// ログインユーザー取得
 		Teacher teacher = (Teacher) session.getAttribute("user");
 
 		LocalDate today = LocalDate.now();
@@ -31,39 +32,25 @@ public class TestListAction extends Action {
 
 		List<Integer> entYearSet = new ArrayList<>();
 
-		// ----------------------------
-		// 2. リクエストパラメータの取得
-		// ----------------------------
+		// リクエストパラメータの取得
 		// 初期表示なのでなし
-
-		// ----------------------------
-		// 3. DBからデータ取得
-		// ----------------------------
+		// DBからデータ取得
 		List<String> classNumSet = classNumDao.filter(teacher.getSchool());
 		var subjectSet = subjectDao.filter(teacher.getSchool());
 
-		// ----------------------------
-		// 4. ビジネスロジック
-		// ----------------------------
+		// ビジネスロジック
 		for (int i = year - 10; i <= year + 1; i++) {
 			entYearSet.add(i);
 		}
 
-		// ----------------------------
-		// 5. DBへデータ保存
-		// ----------------------------
-		// なし
-
-		// ----------------------------
-		// 6. レスポンス値をセット
-		// ----------------------------
+		// DBへデータ保存
+		// レスポンス値をセット
 		request.setAttribute("ent_year_set", entYearSet);
 		request.setAttribute("class_num_set", classNumSet);
 		request.setAttribute("subject_set", subjectSet);
 
-		// ----------------------------
-		// 7. JSPへフォワード
-		// ----------------------------
-		request.getRequestDispatcher("test_list.jsp").forward(request, response);
+		// JSPへフォワード
+		request.getRequestDispatcher("test_list.jsp")
+			.forward(request, response);
 	}
 }

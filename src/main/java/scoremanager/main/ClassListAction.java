@@ -25,11 +25,8 @@ public class ClassListAction extends Action {
 		
 		// DAO
 		ClassNumDao cDao = new ClassNumDao();
-		
 		// クラス一覧取得
-		List<String> classNums = cDao.filter(
-			teacher.getSchool()
-		);
+		List<String> classNums = cDao.filter(teacher.getSchool());
 		
 		// リクエストへセット
 		req.setAttribute("classNums", classNums);

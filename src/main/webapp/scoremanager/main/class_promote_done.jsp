@@ -1,4 +1,4 @@
-<%-- 学生クラス変更完了 --%>
+<%-- クラス情報変更完了 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -14,19 +14,17 @@
 		<section class="me-4">
 		
 			<h2 class="h3 mb-3 fw-bold bg-secondary bg-opacity-10 py-2 px-4">
-				学生クラス変更
+				クラス情報変更
 			</h2>
 			
 			<p class="text-center py-1"
-			   style="background-color:#66CC99; margin-bottom:30px">
+			   style="background-color:#66CC99; margin-bottom:130px">
 				変更が完了しました
 			</p>
 			
 			<p class="mx-3">
-				「${student.name}」
-				のクラスを
-				「${newClassNum}」
-				に変更しました。
+				${oldClassNum} の学生を
+				${newClassNum} に変更しました。
 			</p>
 			
 			<div class="mx-3">

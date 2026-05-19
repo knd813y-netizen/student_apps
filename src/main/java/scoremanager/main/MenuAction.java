@@ -10,7 +10,7 @@ public class MenuAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-
+		
 		// ロカール変数の宣言
 		String url = "";
 		

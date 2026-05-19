@@ -1,4 +1,4 @@
-<%-- indexリダイレクトページ --%>
+ <%-- indexリダイレクトページ --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -9,7 +9,7 @@
 <title></title>
 <script>
 //ログインページにリダイレクト
-location.href="/javaSystemDev/scoremanager/Login.action";
+location.href="/JavaSystemDev/scoremanager/Login.action";
 </script>
 </head>
 <body>

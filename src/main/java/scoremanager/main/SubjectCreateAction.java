@@ -1,6 +1,5 @@
 package scoremanager.main;
 
-
 import java.util.HashMap;
 
 import jakarta.servlet.http.HttpServletRequest;

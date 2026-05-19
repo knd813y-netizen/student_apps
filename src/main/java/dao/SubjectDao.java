@@ -24,7 +24,7 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 		
 		try {
-			// SQL文をセット
+			// SQL文をセット(準備)
 			statement = connection.prepareStatement(
 				"select * from subject where cd = ? and school_cd = ?"
 			);
@@ -49,7 +49,6 @@ public class SubjectDao extends Dao {
 			
 		} catch (Exception e) {
 			throw e;
-			
 		} finally {
 			// PreparedStatementを閉じる
 			if (statement != null) {
@@ -73,30 +72,6 @@ public class SubjectDao extends Dao {
 		return subject;
 	}
 	
-	 // ResultSet → List
-	private List<Subject> postFilter(ResultSet rSet, School school) throws Exception {
-		// Listを初期化
-		List<Subject> list = new ArrayList<>();
-		try {
-			// ResultSetを全件走査
-			while (rSet.next()) {
-				// 科目Instanceを初期化
-				Subject subject = new Subject();
-				// 科目Instanceに検索結果をセット
-				subject.setCd(rSet.getString("cd"));
-				subject.setName(rSet.getString("name"));
-				subject.setSchool(school);
-				
-				// Listに追加
-				list.add(subject);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return list;
-	}
-	
 	// 科目一覧取得
 	public List<Subject> filter(School school) throws Exception {
 		// Listを初期化
@@ -108,7 +83,7 @@ public class SubjectDao extends Dao {
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文のソート
-		String order = "order by cd asc";	
+		String order = " order by cd asc";	
 		
 		try {
 			// SQL文をセット
@@ -120,9 +95,20 @@ public class SubjectDao extends Dao {
 			// 実行
 			rSet = statement.executeQuery();
 			
-			// Listへの格納処理を実行
-			list = postFilter(rSet, school);
-			
+			// ResultSet全件走査
+			while (rSet.next()) {
+				
+				// 科目生成
+				Subject subject = new Subject();
+				
+				// 検索結果をセット
+				subject.setCd(rSet.getString("cd"));
+				subject.setName(rSet.getString("name"));
+				subject.setSchool(school);
+				
+				// Listに追加
+				list.add(subject);
+			}
 		} catch (Exception e) {
 			throw e;
 			
@@ -136,7 +122,7 @@ public class SubjectDao extends Dao {
 				}
 			}
 			
-			// connectionを閉じる
+			// Connectionを閉じる
 			if (connection != null) {
 				try {
 					connection.close();
