@@ -10,7 +10,7 @@ public class TestListSubject implements Serializable {
 	private String studentNo;
 	private String studentName;
 	private String classNum;
-	private Map<Integer, Integer> points = new LinkedHashMap<>();
+	private Map<Integer, String> points = new LinkedHashMap<>();
 	
 // ゲッター(Getter)とセッター(Setter)の設置
 	public int getEntYear() {
@@ -25,7 +25,7 @@ public class TestListSubject implements Serializable {
 	public String getClassNum() {
 		return classNum;
 	}
-	public Map<Integer, Integer> getPoints() {
+	public Map<Integer, String> getPoints() {
 		return points;
 	}
 
@@ -42,21 +42,21 @@ public class TestListSubject implements Serializable {
 	public void setClassNum(String classNum) {
 		this.classNum = classNum;
 	}
-	public void setPoints(Map<Integer, Integer> points) {
+	public void setPoints(Map<Integer, String> points) {
 		this.points = points;
 	}
 
 	/**
 	 * 指定回数の点数をセット
 	 */
-	public void putPoint(int num, int point) {
-		this.points.put(num, point);
+	public void putPoint(int key, int value) {
+		this.points.put(key, String.valueOf(value));
 	}
 
 	/**
 	 * 指定回数の点数を取得
 	 */
-	public Integer getPoint(int num) {
-		return this.points.get(num);
+	public String getPoint(int key) {
+		return this.points.get(key);
 	}
 }
