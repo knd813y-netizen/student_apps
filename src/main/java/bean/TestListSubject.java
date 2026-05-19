@@ -10,6 +10,8 @@ public class TestListSubject implements Serializable {
 	private String studentNo;
 	private String studentName;
 	private String classNum;
+	// 2026/05/19 変更理由: クラス図の getPoint(key: int): String に合わせるため、点数を文字列で保持する。
+	// TestListSubjectDao からは int で渡されるため、putPoint で String に変換する。
 	private Map<Integer, String> points = new LinkedHashMap<>();
 	
 // ゲッター(Getter)とセッター(Setter)の設置
@@ -48,6 +50,7 @@ public class TestListSubject implements Serializable {
 
 	/**
 	 * 指定回数の点数をセット
+	 * 2026/05/19 変更理由: DBから取得した数値の点数を、設計書に合わせてStringとして保持するため。
 	 */
 	public void putPoint(int key, int value) {
 		this.points.put(key, String.valueOf(value));
@@ -55,6 +58,7 @@ public class TestListSubject implements Serializable {
 
 	/**
 	 * 指定回数の点数を取得
+	 * 2026/05/19 変更理由: クラス図の戻り値 String と一致させるため。
 	 */
 	public String getPoint(int key) {
 		return this.points.get(key);
