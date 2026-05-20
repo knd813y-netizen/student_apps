@@ -1,6 +1,3 @@
-//メソッドのコード変更(filterメソッドのSQL文)
-//スペースが足りてなく学生検索でエラー発生
-//変更日：5/19
 package dao;
 
 import java.sql.Connection;
@@ -119,12 +116,12 @@ public class StudentDao extends Dao {
 		// SQL文の条件
 		String condition = "and ent_year = ? and class_num = ?";
 		// SQL文のソート
-		String order = " order by no asc";
+		String order = "order by no asc";
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = " and is_attend = true";
+			conditionIsAttend = "and is_attend = true";
 		}
 		
 		try {
@@ -180,7 +177,7 @@ public class StudentDao extends Dao {
 		// SQL文のソート
 		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
 			conditionIsAttend = " and is_attend = true";
@@ -237,7 +234,7 @@ public class StudentDao extends Dao {
 		// SQL文のソート
 		String order = " order by no asc";
 		// SQL文の在学フラグ条件
-		String conditionIsAttend = "";
+		String conditionIsAttend = " ";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
 			conditionIsAttend = " and is_attend = true";
@@ -296,7 +293,7 @@ public class StudentDao extends Dao {
 				// Insert文をセット
 				statement = connection.prepareStatement(
 					"insert into student(no, name, ent_year, class_num, is_attend, school_cd)"
-					+ " values(?, ?, ?, ?, ?, ?)"
+					+ "values(?, ?, ?, ?, ?, ?)"
 				);
 				// 値をバインド(bind)
 				statement.setString(1, student.getNo());

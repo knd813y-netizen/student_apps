@@ -29,6 +29,19 @@ public class ClassCreateExecuteAction extends Action {
 		String class_num = req.getParameter("class_num");
 		// エラーはHashMapに格納
 		Map<String, String> errors = new HashMap<>();
+
+		// 文字数チェック
+		if (class_num == null || class_num.trim().equals("")) {
+			errors.put(
+				"class_num",
+				"クラス番号を入力してください"
+			);
+		} else if (class_num.length() > 3) {
+			errors.put(
+				"class_num",
+				"クラス番号は3文字以内で入力してください"
+			);
+		}
 		
 		// DAO
 		ClassNumDao cDao = new ClassNumDao();
@@ -59,9 +72,8 @@ public class ClassCreateExecuteAction extends Action {
 			return;
 		}
 		
-		// Bean
+		// クラス番号インスタンス生成
 		ClassNum classNum = new ClassNum();
-		
 		classNum.setClass_num(class_num);
 		classNum.setSchool(teacher.getSchool());
 		

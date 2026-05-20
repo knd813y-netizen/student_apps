@@ -9,7 +9,7 @@
 <title></title>
 <script>
 //ログインページにリダイレクト
-location.href="/javaSystemDev/scoremanager/Login.action";
+location.href="/JavaSystemDev/scoremanager/Login.action";
 </script>
 </head>
 <body>

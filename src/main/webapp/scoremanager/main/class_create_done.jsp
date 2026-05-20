@@ -1,4 +1,4 @@
-<%-- クラス情報変更完了 --%>
+<%-- クラス情報登録完了 --%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 
@@ -23,6 +23,12 @@
 			</p>
 			
 			<div class="mx-3">
+				<%-- クラス登録画面に遷移する --%>
+				<a href="ClassCreate.action"
+				   style="margin-right:100px">
+					戻る
+				</a>
+
 				<%-- クラス一覧画面に遷移する --%>
 				<a href="ClassList.action">
 					クラス一覧

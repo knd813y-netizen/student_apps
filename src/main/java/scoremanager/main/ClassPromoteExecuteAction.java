@@ -1,11 +1,16 @@
 package scoremanager.main;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import bean.Student;
 import bean.Teacher;
+import dao.ClassNumDao;
 import dao.StudentDao;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class ClassPromoteExecuteAction extends Action {
@@ -25,6 +30,34 @@ public class ClassPromoteExecuteAction extends Action {
 		// パラメータ取得
 		String oldClassNum = req.getParameter("oldClassNum");
 		String newClassNum = req.getParameter("newClassNum");
+
+		// エラーはHashMapに格納
+		Map<String, String> errors = new HashMap<>();
+
+		// 新クラス未選択チェック
+		if (newClassNum == null || newClassNum.equals("") || newClassNum.equals("0")) {
+			errors.put(
+				"class_num",
+				"新しいクラス番号を選択してください"
+			);
+		}
+		
+		// エラーがある場合
+		if (!errors.isEmpty()) {
+			req.setAttribute("errors", errors);
+			req.setAttribute("oldClassNum", oldClassNum);
+			
+			// クラス一覧取得
+			ClassNumDao cDao = new ClassNumDao();
+			req.setAttribute("classNums", cDao.filter(teacher.getSchool()));
+			
+			// クラス進級変更画面へ
+			url = "class_promote.jsp";
+			req.getRequestDispatcher(url)
+				.forward(req, res);
+			
+			return;
+		}
 		
 		// Dao
 		StudentDao sDao = new StudentDao();
