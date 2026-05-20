@@ -10,9 +10,9 @@ public class TestListSubject implements Serializable {
 	private String studentNo;
 	private String studentName;
 	private String classNum;
-	// 2026/05/19 変更理由: クラス図の points: Map<Integer,Integer> に合わせるため、点数は数値で保持する。
-	// getPoint ではクラス図の戻り値 String に合わせて、取得時だけ文字列へ変換する。
-	private Map<Integer, Integer> points = new LinkedHashMap<>();
+	// 2026/05/19 変更理由: getPoint(key: int): String に合わせ、成績参照画面で扱う点数を文字列で保持する。
+	// TestListSubjectDao からは int で渡されるため、putPoint で String に変換する。
+	private Map<Integer, String> points = new LinkedHashMap<>();
 	
 // ゲッター(Getter)とセッター(Setter)の設置
 	public int getEntYear() {
@@ -27,7 +27,7 @@ public class TestListSubject implements Serializable {
 	public String getClassNum() {
 		return classNum;
 	}
-	public Map<Integer, Integer> getPoints() {
+	public Map<Integer, String> getPoints() {
 		return points;
 	}
 
@@ -44,24 +44,23 @@ public class TestListSubject implements Serializable {
 	public void setClassNum(String classNum) {
 		this.classNum = classNum;
 	}
-	public void setPoints(Map<Integer, Integer> points) {
+	public void setPoints(Map<Integer, String> points) {
 		this.points = points;
 	}
 
 	/**
 	 * 指定回数の点数をセット
-	 * 2026/05/19 変更理由: クラス図の points: Map<Integer,Integer> に合わせ、点数はIntegerで保持するため。
+	 * 2026/05/19 変更理由: DBから取得した数値の点数を、表示用のStringとして保持するため。
 	 */
 	public void putPoint(int key, int value) {
-		this.points.put(key, value);
+		this.points.put(key, String.valueOf(value));
 	}
 
 	/**
 	 * 指定回数の点数を取得
-	 * 2026/05/19 変更理由: クラス図の getPoint(key: int): String と一致させるため。
+	 * 2026/05/19 変更理由: getPoint(key: int): String と一致させるため。
 	 */
 	public String getPoint(int key) {
-		Integer point = this.points.get(key);
-		return point == null ? null : String.valueOf(point);
+		return this.points.get(key);
 	}
 }
