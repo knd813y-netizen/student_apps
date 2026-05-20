@@ -1,7 +1,12 @@
 package scoremanager.main;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import bean.Student;
 import bean.Teacher;
+import dao.ClassNumDao;
 import dao.StudentDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,6 +46,29 @@ public class StudentUpdateExecuteAction extends Action {
 		student.setClassNum(classNum);
 		student.setAttend(isAttend);
 		student.setSchool(teacher.getSchool());
+		
+		Map<String, String> errors = new HashMap<>();
+		
+		// 2026/05/20 変更理由: 設計書に合わせ、学生変更時に氏名が未入力の場合は保存せずエラーにする。
+		if (name == null || name.trim().isEmpty()) {
+			errors.put("name", "氏名を入力してください");
+		}
+		
+		if (!errors.isEmpty()) {
+			ClassNumDao cDao = new ClassNumDao();
+			List<String> classNumSet = cDao.filter(teacher.getSchool());
+			
+			req.setAttribute("student", student);
+			req.setAttribute("class_num_set", classNumSet);
+			req.setAttribute("errors", errors);
+			
+			url = "student_update.jsp";
+			req.getRequestDispatcher(url)
+				.forward(req, res);
+			return;
+		}
+		
+		student.setName(name.trim());
 		
 		// 学生取得
 		StudentDao sdao = new StudentDao();
