@@ -60,6 +60,11 @@
 							   type="text"
 							   name="name"
 							   value="${student.name}">
+						
+						<%-- 2026/05/20 変更理由: 学生変更時、氏名未入力のエラーを画面に表示するため。 --%>
+						<div class="text-warning mt-2">
+							${errors.get("name")}
+						</div>
 							
 					</div>
 					
