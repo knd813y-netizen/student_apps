@@ -39,7 +39,7 @@ public class TestListAction extends Action {
 		var subjectSet = subjectDao.filter(teacher.getSchool());
 
 		// ビジネスロジック
-		for (int i = year - 10; i <= year + 1; i++) {
+		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
 

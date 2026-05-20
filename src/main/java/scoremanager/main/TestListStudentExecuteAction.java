@@ -41,7 +41,7 @@ public class TestListStudentExecuteAction extends Action {
 
 		studentNo = request.getParameter("f4");
 
-		for (int i = year - 10; i <= year + 1; i++) {
+		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
 

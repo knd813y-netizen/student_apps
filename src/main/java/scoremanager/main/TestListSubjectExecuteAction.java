@@ -46,7 +46,7 @@ public class TestListSubjectExecuteAction extends Action {
 		classNum = request.getParameter("f2");
 		subjectCd = request.getParameter("f3");
 
-		for (int i = year - 10; i <= year + 1; i++) {
+		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
 
