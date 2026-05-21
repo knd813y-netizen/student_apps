@@ -114,14 +114,14 @@ public class StudentDao extends Dao {
 		// ResultSet
 		ResultSet rSet = null;
 		// SQL文の条件
-		String condition = "and ent_year = ? and class_num = ?";
+		String condition = " and ent_year = ? and class_num = ?";
 		// SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		// 在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend = true";
+			conditionIsAttend = " and is_attend = true";
 		}
 		
 		try {
@@ -293,7 +293,7 @@ public class StudentDao extends Dao {
 				// Insert文をセット
 				statement = connection.prepareStatement(
 					"insert into student(no, name, ent_year, class_num, is_attend, school_cd)"
-					+ "values(?, ?, ?, ?, ?, ?)"
+					+ " values(?, ?, ?, ?, ?, ?)"
 				);
 				// 値をバインド(bind)
 				statement.setString(1, student.getNo());
